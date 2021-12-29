@@ -1,6 +1,10 @@
 # Tech-Ecommerce-Website
 This is an e-commerce website written in C# using ASP.NET MVC
 
+##Installation
+### Clone the project with the provided url
+### 
+
 ## Functions
 Client Session:
   View any displayed products by types, in depth...
