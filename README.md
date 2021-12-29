@@ -1,9 +1,10 @@
 # Tech-Ecommerce-Website
 This is an e-commerce website written in C# using ASP.NET MVC
 
-##Installation
-### Clone the project with the provided url
-### 
+## Installation
+#### Clone the project with the provided url
+#### Use script.sql to update your database (You can customize your database location) or you can manually map the models to database instead.
+#### Enjoy!!!
 
 ## Functions
 Client Session:
