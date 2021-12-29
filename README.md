@@ -1,7 +1,7 @@
 # Tech-Ecommerce-Website
 This is an e-commerce website written in C# using ASP.NET MVC
 
-##Functions
+**Functions
 Client Session:
   View any displayed products by types, in depth...
   Contact the store's admin on Facebook
