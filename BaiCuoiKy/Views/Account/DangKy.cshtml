@@ -1,0 +1,178 @@
+﻿
+@Html.ValidationSummary(true)
+@model BaiCuoiKy.Models.AccountModel
+<main class="main">
+    <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Login</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('../../assets/images/backgrounds/login-bg.jpg')">
+        <div class="container">
+            <div class="form-box">
+                <div class="form-tab">
+                    <ul class="nav nav-pills nav-fill" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Đăng ký</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+
+                            @using (Html.BeginForm("DangKy", "Account", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    @Html.LabelFor(kh => kh.TaiKhoan)
+                                    @Html.TextBoxFor(kh => kh.TaiKhoan,
+                                   new
+                                        {
+                                            type = "text",
+                                            @class = "form-control",
+                                            id = "register-username-2",
+                                        })
+                                    @Html.ValidationMessageFor(kh => kh.TaiKhoan,"", new { @class="text-danger"})
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    @Html.LabelFor(kh => kh.MatKhau)
+                                    @Html.TextBoxFor(kh => kh.MatKhau,
+                                   new
+                                   {
+                                       type = "password",
+                                       @class = "form-control",
+                                       id = "register-password-2",
+                                        })
+                                    @Html.ValidationMessageFor(kh => kh.MatKhau, "", new { @class = "text-danger" })
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    @Html.LabelFor(kh => kh.NhapLaiMatKhau)
+                                    @Html.TextBoxFor(kh => kh.NhapLaiMatKhau,
+                                   new
+                                   {
+                                       type = "password",
+                                       @class = "form-control",
+                                       id = "register-repassword-2",
+                                        })
+                                    @Html.ValidationMessageFor(kh => kh.NhapLaiMatKhau, "", new { @class = "text-danger" })
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    @Html.LabelFor(kh => kh.HoTen)
+                                    @Html.TextBoxFor(kh => kh.HoTen,
+                                   new
+                                   {
+                                       type = "text",
+                                       @class = "form-control",
+                                       id = "register-name-2",
+                                        })
+                                    @Html.ValidationMessageFor(kh => kh.HoTen, "", new { @class = "text-danger" })
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    @Html.LabelFor(kh => kh.DienThoai)
+                                    @Html.TextBoxFor(kh => kh.DienThoai,
+                                   new
+                                   {
+                                       type = "text",
+                                       @class = "form-control",
+                                       id = "register-phone-2",
+                                        })
+                                    @Html.ValidationMessageFor(kh => kh.DienThoai, "", new { @class = "text-danger" })
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    @Html.LabelFor(kh => kh.Email)
+                                    @Html.TextBoxFor(kh => kh.Email,
+                                   new
+                                   {
+                                       type = "text",
+                                       @class = "form-control",
+                                       id = "register-email-2",
+                                        })
+                                    @Html.ValidationMessageFor(kh => kh.Email, "", new { @class = "text-danger" })
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    @Html.LabelFor(kh => kh.NgaySinh)
+                                    @Html.TextBoxFor(kh => kh.NgaySinh,
+                                   new
+                                   {
+                                       type = "date",
+                                       @class = "form-control",
+                                       id = "register-birth-2",
+                                        })
+                                    @Html.ValidationMessageFor(kh => kh.NgaySinh, "", new { @class = "text-danger" })
+                                </div><!-- End .form-group -->
+
+                                <div class="form-group">
+                                    @Html.LabelFor(kh => kh.DiaChi)
+                                    @Html.TextBoxFor(kh => kh.DiaChi,
+                                   new
+                                   {
+                                       type = "text",
+                                       @class = "form-control",
+                                       id = "register-address-2",
+                                        })
+                                    @Html.ValidationMessageFor(kh => kh.DiaChi, "", new { @class = "text-danger" })
+                                </div><!-- End .form-group -->
+
+                                <div class="form-footer">
+                                    <button type="submit" class="btn btn-outline-primary-2">
+                                        <span>Đăng ký</span>
+                                        <i class="icon-long-arrow-right"></i>
+                                    </button>
+
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="register-policy-2" required>
+                                        <label class="custom-control-label" for="register-policy-2">I agree to the <a href="#">privacy policy</a> *</label>
+                                    </div><!-- End .custom-checkbox -->
+                                </div><!-- End .form-footer -->
+
+                            }
+                            <div class="form-choice">
+                                <p class="text-center">or sign in with</p>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <a href="#" class="btn btn-login btn-g">
+                                            <i class="icon-google"></i>
+                                            Login With Google
+                                        </a>
+                                    </div><!-- End .col-6 -->
+                                    <div class="col-sm-6">
+                                        <a href="#" class="btn btn-login  btn-f">
+                                            <i class="icon-facebook-f"></i>
+                                            Login With Facebook
+                                        </a>
+                                    </div><!-- End .col-6 -->
+                                </div><!-- End .row -->
+                            </div><!-- End .form-choice -->
+                        </div><!-- .End .tab-pane -->
+                    </div><!-- End .tab-content -->
+                </div><!-- End .form-tab -->
+            </div><!-- End .form-box -->
+        </div><!-- End .container -->
+    </div><!-- End .login-page section-bg -->
+</main><!-- End .main -->
+
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.intellisense.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.slim.js"></script>
+<script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<a href="~/Scripts/jquery-3.4.1.min.map">~/Scripts/jquery-3.4.1.min.map</a>
+<a href="~/Scripts/jquery-3.4.1.slim.min.map">~/Scripts/jquery-3.4.1.slim.min.map</a>

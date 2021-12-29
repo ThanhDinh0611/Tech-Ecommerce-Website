@@ -1,0 +1,25 @@
+﻿@if (ViewBag.TaiKhoan == null)
+{
+    <li>
+        <a href="@Url.Action("DangNhap","Account")">Đăng nhập</a> /
+        <a href="@Url.Action("DangKy","Account")">Đăng ký</a>
+    </li>
+}
+else 
+{ 
+<li>
+    <div class="dropdown category-dropdown">
+        <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+            @ViewBag.TaiKhoan.TaiKhoan
+        </a>
+        <div class="dropdown-menu">
+            <nav class="side-nav">
+                <ul class="menu-vertical sf-arrows">
+                    <li><a href="@Url.Action("DangXuat", "Home")">Đăng xuất</a></li>
+                </ul><!-- End .menu-vertical -->
+            </nav><!-- End .side-nav -->
+        </div><!-- End .dropdown-menu -->
+    </div><!-- End .category-dropdown -->
+    
+</li>
+}

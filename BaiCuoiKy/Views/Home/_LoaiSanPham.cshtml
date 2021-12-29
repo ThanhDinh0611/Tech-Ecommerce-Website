@@ -1,0 +1,10 @@
+﻿<div class="dropdown-menu">
+    <nav class="side-nav">
+        <ul class="menu-vertical sf-arrows">
+            @foreach (var item in ViewBag.LoaiSanPham)
+            {
+                <li><a href="@Url.Action("Category", "Home", new { id = item.MaLSP, page = 1})">@item.TenLoaiSanPham</a></li>
+            }
+        </ul><!-- End .menu-vertical -->
+    </nav><!-- End .side-nav -->
+</div><!-- End .dropdown-menu -->

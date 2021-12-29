@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="tab-content tab-content-basic">
+            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
+                @*Tổng quát*@
+                <div class="row mb-4 px-4">
+                    <div class="col-sm-12">
+                        <div class="statistics-details d-flex align-items-center justify-content-between">
+                            <div class="card align-items-center justify-content-between col-2 bg-gradient-info" style="width: 20%">
+                                <div class="card-body">
+                                    <p class="statistics-title">Tổng số đơn hàng</p>
+                                    <h3 class="rate-percentage">32.53%</h3>
+
+                                </div>
+                            </div>
+                            <div class="card align-items-center justify-content-between col-2 bg-gradient-success" style="width: 20%">
+                                <div class="card-body">
+                                    <p class="statistics-title">Tổng số khách hàng</p>
+                                    <h3 class="rate-percentage">32.53%</h3>
+
+                                </div>
+                            </div>
+                            <div class="card align-items-center justify-content-between col-2 bg-gradient-warning" style="width: 20%">
+                                <div class="card-body">
+                                    <p class="statistics-title">Tổng số sản phẩm</p>
+                                    <h3 class="rate-percentage">32.53%</h3>
+
+                                </div>
+                            </div>
+                            <div class="card align-items-center justify-content-between col-2 bg-gradient-danger" style="width: 20%">
+                                <div class="card-body">
+                                    <p class="statistics-title">Tổng doanh thu</p>
+                                    <h3 class="rate-percentage">32.53%</h3>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Thống kê*@
+                <div class="row">
+                    <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="card ">
+                            <div class="card-body">
+                                <h4 class="header-text fw-bold">Thống kê doanh thu</h4>
+                                <canvas id="myChart"></canvas>
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                <script>
+                            const labels = [
+                                "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7",
+                                "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+                            ];
+                            const data = {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Doanh thu năm @ViewBag.ThisYear (VNĐ)',
+                                    backgroundColor: 'rgb(255, 99, 132)',
+                                    borderColor: 'rgb(255, 99, 132)',
+                                    data: @ViewBag.data,
+                                }]
+                            };
+
+                            const config = {
+                                type: 'line',
+                                data: data,
+                                options: {}
+                            };
+                                </script>
+                                <script>
+                                    const myChart = new Chart(
+                                        document.getElementById('myChart'),
+                                        config
+                                    );
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 grid-margin stretch-card">
+                        <div class="card container">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <table class="table table-borderless table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <td>Tháng</td>
+                                                    <td>Doanh thu (VNĐ)</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in ViewBag.DoanhThu1)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Thang</td>
+                                                        <td>@String.Format("{0:0,0}", item.DoanhThu)</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <table class="table table-borderless table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <td>Tháng</td>
+                                                    <td>Doanh thu (VNĐ)</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in ViewBag.DoanhThu2)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Thang</td>
+                                                        <td>@String.Format("{0:0,0}", item.DoanhThu)</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

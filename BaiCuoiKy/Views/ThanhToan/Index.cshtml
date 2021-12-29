@@ -1,0 +1,108 @@
+﻿@Html.ValidationSummary(true)
+@model BaiCuoiKy.Models.ThanhToanModel
+<main class="main">
+    <script></script>
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+                @using (Html.BeginForm("ThanhToan", "ThanhToan", FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h2 class="checkout-title">Chi tiết đơn hàng</h2><!-- End .checkout-title -->
+                            @Html.LabelFor(item => item.HoTen)
+                            @Html.TextBoxFor(item => item.HoTen, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(item => item.HoTen, "", new { @class = "text-danger" })
+                            <br />
+                            @Html.LabelFor(item => item.DiaChi)
+                            @Html.TextBoxFor(item => item.DiaChi, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(item => item.DiaChi, "", new { @class = "text-danger" })
+                            <br />
+                            @Html.LabelFor(item => item.DienThoai)
+                            @Html.TextBoxFor(item => item.DienThoai, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(item => item.DienThoai, "", new { @class = "text-danger" })
+                            <br />
+                            @Html.LabelFor(item => item.Email)
+                            @Html.TextBoxFor(item => item.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(item => item.Email, "", new { @class = "text-danger" })
+                            <br />
+                            @Html.LabelFor(item => item.YeuCau)
+                            @Html.TextAreaFor(item => item.YeuCau, new { @class = "form-control", cols = "30", rows = "4", placeholder = "Yêu cầu đặc biệt về vấn đề giao hàng, đóng gói..." })
+
+                        </div><!-- End .col-lg-9 -->
+                        <aside class="col-lg-3">
+                            <div class="summary">
+                                <h3 class="summary-title">Đơn hàng của bạn</h3><!-- End .summary-title -->
+
+                                <table class="table table-summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Tổng tiền</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @if (Model != null && Model.GioHang != null && Model.GioHang.ListGioHang != null)
+                                        {
+                                            foreach (var item in Model.GioHang.ListGioHang)
+                                            {
+                                                <tr>
+                                                    <td><a href="@Url.Action("Detail","Home", new { id = item.MaSanPham})">@item.TenSanPham</a></td>
+                                                    <td>@String.Format("{0:0,0}", item.GiaTong)đ</td>
+                                                </tr>
+                                            }
+                                            <tr class="summary-subtotal">
+                                                <td>Thành tiền:</td>
+                                                <td>@String.Format("{0:0,0}", Model.GioHang.TongTien)đ</td>
+                                            </tr><!-- End .summary-subtotal -->
+                                            <tr>
+                                                <td>Shipping:</td>
+                                                <td>@(Model.GioHang.Shipping == 2? "Thường":"Nhanh")</td>
+                                            </tr>
+                                            <tr class="summary-total">
+                                                <td>Tổng cộng:</td>
+                                                <td>@String.Format("{0:0,0}", Model.GioHang.TongTienSauShip)đ</td>
+                                            </tr><!-- End .summary-total -->
+                                        }
+
+
+                                    </tbody>
+                                </table><!-- End .table table-summary -->
+
+                                <button  type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                    <span class="btn-text">Đặt hàng</span>
+                                    <span class="btn-hover-text">Thanh toán</span>
+                                </button>
+                            </div><!-- End .summary -->
+                        </aside><!-- End .col-lg-3 -->
+                    </div><!-- End .row -->
+                }
+            </div><!-- End .container -->
+        </div><!-- End .checkout -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.intellisense.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.slim.js"></script>
+<script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/modernizr-2.8.3.js"></script>

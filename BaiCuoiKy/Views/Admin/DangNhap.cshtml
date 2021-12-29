@@ -1,0 +1,100 @@
+﻿@{ 
+    Layout = null;
+}
+@Html.ValidationSummary(true)
+@model BaiCuoiKy.ADMIN
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Star Admin2 </title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/feather/feather.css">
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../../assets/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="../../assets/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../assets/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.jpg" />
+</head>
+
+<body>
+    @Html.Partial("_Notification")
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center auth px-0">
+                <div class="row w-100 mx-0">
+                    <div class="col-lg-4 mx-auto">
+                        <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                            <div class="brand-logo">
+                                <img src="../../assets/images/logo.jpg" alt="logo">
+                            </div>
+                            <h3>Website quản lý</h3>
+                            <h6 class="fw-light">Vui lòng đăng nhập để tiếp tục.</h6>
+                                @using (Html.BeginForm("DangNhap", "Admin", FormMethod.Post))
+                                {
+                                @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(user => user.TaiKhoan,
+                                        new
+                                        {
+                                            type = "text",
+                                            @class = "form-control form-control-lg",
+                                            placeholder = "Tên đăng nhập"
+                                        })
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(user => user.MatKhau,
+                                        new
+                                        {
+                                            type = "password",
+                                            @class = "form-control form-control-lg",
+                                            placeholder = "Mật khẩu"
+                                        })
+                                    </div>
+                                    <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                                        <span>ĐĂNG NHẬP</span>
+                                    </button>
+                                    <div class="my-2 d-flex flex-row-reverse p-2">
+                                        <a href="#" class="auth-link text-black">Quên mật khẩu?</a>
+                                    </div>
+                                }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/template.js"></script>
+    <script src="../../assets/js/settings.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- endinject -->
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="82d45316fd6f4338b1fd17f9817d4b5e" Name="Diagram1">
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.Banner" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.BLOG" Width="1.5" PointX="5.75" PointY="8.75" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.CHITIETDONTHANG" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.DONDATHANG" Width="1.5" PointX="3" PointY="10.75" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.GioHang" Width="1.5" PointX="8.25" PointY="4.375" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.KHACHHANG" Width="1.5" PointX="0.75" PointY="10.5" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.LOAISANPHAM" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.NHACUNGCAP" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.SANPHAM" Width="1.5" PointX="3" PointY="2.5" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.YEUTHICH" Width="1.5" PointX="6.25" PointY="4.625" />
+        <AssociationConnector Association="QLBanDienThoaiModel.FK_CHITIETDONTHANG_DONDATHANG" />
+        <AssociationConnector Association="QLBanDienThoaiModel.FK_CHITIETDONTHANG_SACH" />
+        <AssociationConnector Association="QLBanDienThoaiModel.FK_DONDATHANG_KHACHHANG" />
+        <AssociationConnector Association="QLBanDienThoaiModel.FK_GIOHANG_KHACHHANG" />
+        <AssociationConnector Association="QLBanDienThoaiModel.FK_GIOHANG_SANPHAM" />
+        <AssociationConnector Association="QLBanDienThoaiModel.FK__YEUTHICH__MaKH__4BAC3F29" />
+        <AssociationConnector Association="QLBanDienThoaiModel.FK_LoaiSanPham" />
+        <AssociationConnector Association="QLBanDienThoaiModel.FK_NhaXB" />
+        <AssociationConnector Association="QLBanDienThoaiModel.FK__YEUTHICH__MaSanP__4CA06362" />
+        <EntityTypeShape EntityType="QLBanDienThoaiModel.ADMIN" Width="1.5" PointX="8.375" PointY="8.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,55 @@
+﻿
+<div class="dropdown cart-dropdown">
+    <a href="@Url.Action("Index", "GioHang")" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+        <div class="icon">
+            <i class="icon-shopping-cart"></i>
+            <span class="cart-count">@ViewBag.SoLuong</span>
+        </div>
+        <p>Giỏ hàng</p>
+    </a>
+    <div class="dropdown-cart-products">
+        <div class="dropdown-menu dropdown-menu-right">
+            @if (ViewBag.GioHang != null && ViewBag.GioHang.ListGioHang != null)
+            {
+                foreach (var item in ViewBag.GioHang.ListGioHang)
+                {
+                    <div class="product">
+                        <div class="product-cart-details">
+                            <h4 class="product-title">
+                                <a href="@Url.Action("Detail", "Home", new { id = item.MaSanPham})">@item.TenSanPham</a>
+                            </h4>
+
+                            <span class="cart-product-info">
+                                <span class="cart-product-qty">@item.SoLuong</span>
+                                x @String.Format("{0:0,0}", @item.GiaBan) đ
+                            </span>
+                        </div><!-- End .product-cart-details -->
+
+                        <figure class="product-image-container">
+                            <a href="product.html" class="product-image">
+                                <img src="@item.AnhBia" alt="product">
+                            </a>
+                        </figure>
+                        <a href="@Url.Action("XoaSanPham","GioHang", new { id = item.MaSanPham})" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                    </div><!-- End .product -->
+                }
+            }
+            else
+            {
+                <h4 class="product-title" style="color: grey; text-align: center">
+                    CHƯA CÓ SẢN PHẨM
+                </h4>
+            }
+            <div class="dropdown-cart-total">
+                <span>Tổng tiền:</span>
+
+                <span class="cart-total-price">@String.Format("{0:0,0}", ViewBag.TongTien) đ</span>
+            </div><!-- End .dropdown-cart-total -->
+            <div class="dropdown-cart-action">
+                <a href="@Url.Action("Index", "GioHang")" class="btn btn-primary">Xem giỏ hàng</a>
+                <a href="@(Session["GioHang"] == null? "#" :  Url.Action("Index", "ThanhToan", new { GioHang = Model}))"><span>Thanh toán</span><i class="icon-long-arrow-right"></i></a>
+            </div><!-- End .dropdown-cart-total -->
+
+        </div><!-- End .cart-product -->
+    </div><!-- End .dropdown-menu -->
+</div><!-- End .cart-dropdown -->
