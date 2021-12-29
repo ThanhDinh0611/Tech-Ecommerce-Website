@@ -2,9 +2,10 @@
 This is an e-commerce website written in C# using ASP.NET MVC
 
 ## Installation
-#### Clone the project with the provided url
-#### Use script.sql to update your database (You can customize your database location) or you can manually map the models to database instead.
-#### Enjoy!!!
+#### 1. Clone the project with the provided url
+#### 2. Use script.sql to update your database (You can customize your database location) or you can manually map the models to database instead.
+#### 3. Update Connection String in the solution
+#### 4. Enjoy!!!
 
 ## Functions
 Client Session:
