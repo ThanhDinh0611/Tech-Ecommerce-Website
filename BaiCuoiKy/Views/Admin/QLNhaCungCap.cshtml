@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "QLNhaCungCap";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-panel position-absolute" style="left: 14.3%">
+    <div class="content-wrapper">
+        <div class="container p-3">
+            <div class="row p-4">
+                <div class="col-6">
+                    <h2 class="text-primary">Danh sách nhà cung cấp</h2>
+                </div>
+                <div class="col-6 text-end">
+                    <a href="#" class="btn btn-primary">
+                        <i class="menu-icon mdi mdi-plus-circle"></i>&nbsp; Thêm loại nhà cung cấp mới
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-bordered table-striped" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th class="col-2 text-primary">Logo</th>
+                        <th class="col-2 text-primary">Tên nhà cung cấp</th>
+                        <th class="col-2 text-primary">Địa chỉ</th>
+                        <th class="col-2 text-primary">Số điện thoại</th>
+                        <th class="col-2 text-primary"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Vendors)
+                    {
+                    <tr>
+                        <td><img src="@item.Logo" class="mx-auto d-block rounded" /></td>
+                        <td>@item.TenNCC</td>
+                        <td>@item.DiaChi</td>
+                        <td>@item.DienThoai</td>
+                        <td class="d-flex justify-content-center">
+                            <a href="#" class="btn btn-danger mx-1">Xóa</a>
+                            <a href="#" class="btn btn-info mx-1">Chỉnh sửa</a>
+                        </td>
+
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

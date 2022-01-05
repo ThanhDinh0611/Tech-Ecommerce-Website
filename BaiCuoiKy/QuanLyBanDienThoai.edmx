@@ -16,6 +16,7 @@
           <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="SDT" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
         </EntityType>
         <EntityType Name="Banner">
           <Key>
@@ -105,7 +106,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="DienThoai" Type="varchar" MaxLength="50" />
           <Property Name="Active" Type="bit" />
-          <Property Name="IsAdmin" Type="bit" />
+          <Property Name="RoleID" Type="int" />
         </EntityType>
         <EntityType Name="LOAISANPHAM">
           <Key>
@@ -123,6 +124,13 @@
           <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
           <Property Name="DienThoai" Type="varchar" MaxLength="50" />
           <Property Name="Logo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="SANPHAM">
           <Key>
@@ -190,6 +198,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ADMIN_ROLES">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+          <End Role="ADMIN" Type="Self.ADMIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="ADMIN">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CHITIETDONTHANG_DONDATHANG">
           <End Role="DONDATHANG" Type="Self.DONDATHANG" Multiplicity="1" />
           <End Role="CHITIETDONTHANG" Type="Self.CHITIETDONTHANG" Multiplicity="*" />
@@ -250,6 +270,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_KHACHHANG_ROLES">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="KHACHHANG">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LoaiSanPham">
           <End Role="LOAISANPHAM" Type="Self.LOAISANPHAM" Multiplicity="0..1" />
           <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
@@ -284,6 +316,7 @@
           <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAISANPHAM" EntityType="Self.LOAISANPHAM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NHACUNGCAP" EntityType="Self.NHACUNGCAP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SANPHAM" EntityType="Self.SANPHAM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="YEUTHICH" EntityType="Self.YEUTHICH" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__YEUTHICH__MaKH__286302EC" Association="Self.FK__YEUTHICH__MaKH__286302EC">
@@ -293,6 +326,10 @@
           <AssociationSet Name="FK__YEUTHICH__MaSanP__29572725" Association="Self.FK__YEUTHICH__MaSanP__29572725">
             <End Role="SANPHAM" EntitySet="SANPHAM" />
             <End Role="YEUTHICH" EntitySet="YEUTHICH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ADMIN_ROLES" Association="Self.FK_ADMIN_ROLES">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="ADMIN" EntitySet="ADMIN" />
           </AssociationSet>
           <AssociationSet Name="FK_CHITIETDONTHANG_DONDATHANG" Association="Self.FK_CHITIETDONTHANG_DONDATHANG">
             <End Role="DONDATHANG" EntitySet="DONDATHANG" />
@@ -314,6 +351,10 @@
             <End Role="SANPHAM" EntitySet="SANPHAM" />
             <End Role="GioHang" EntitySet="GioHang" />
           </AssociationSet>
+          <AssociationSet Name="FK_KHACHHANG_ROLES" Association="Self.FK_KHACHHANG_ROLES">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+          </AssociationSet>
           <AssociationSet Name="FK_LoaiSanPham" Association="Self.FK_LoaiSanPham">
             <End Role="LOAISANPHAM" EntitySet="LOAISANPHAM" />
             <End Role="SANPHAM" EntitySet="SANPHAM" />
@@ -328,6 +369,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="QLBanDienThoaiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="QLBanDienThoaiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADMINs" EntityType="QLBanDienThoaiModel.ADMIN" />
           <EntitySet Name="Banners" EntityType="QLBanDienThoaiModel.Banner" />
           <EntitySet Name="BLOGs" EntityType="QLBanDienThoaiModel.BLOG" />
           <EntitySet Name="CHITIETDONTHANGs" EntityType="QLBanDienThoaiModel.CHITIETDONTHANG" />
@@ -336,8 +378,13 @@
           <EntitySet Name="KHACHHANGs" EntityType="QLBanDienThoaiModel.KHACHHANG" />
           <EntitySet Name="LOAISANPHAMs" EntityType="QLBanDienThoaiModel.LOAISANPHAM" />
           <EntitySet Name="NHACUNGCAPs" EntityType="QLBanDienThoaiModel.NHACUNGCAP" />
+          <EntitySet Name="ROLES" EntityType="QLBanDienThoaiModel.ROLE" />
           <EntitySet Name="SANPHAMs" EntityType="QLBanDienThoaiModel.SANPHAM" />
           <EntitySet Name="YEUTHICHes" EntityType="QLBanDienThoaiModel.YEUTHICH" />
+          <AssociationSet Name="FK_ADMIN_ROLES" Association="QLBanDienThoaiModel.FK_ADMIN_ROLES">
+            <End Role="ROLE" EntitySet="ROLES" />
+            <End Role="ADMIN" EntitySet="ADMINs" />
+          </AssociationSet>
           <AssociationSet Name="FK_CHITIETDONTHANG_DONDATHANG" Association="QLBanDienThoaiModel.FK_CHITIETDONTHANG_DONDATHANG">
             <End Role="DONDATHANG" EntitySet="DONDATHANGs" />
             <End Role="CHITIETDONTHANG" EntitySet="CHITIETDONTHANGs" />
@@ -358,9 +405,13 @@
             <End Role="SANPHAM" EntitySet="SANPHAMs" />
             <End Role="GioHang" EntitySet="GioHangs" />
           </AssociationSet>
-          <AssociationSet Name="FK__YEUTHICH__MaKH__4BAC3F29" Association="QLBanDienThoaiModel.FK__YEUTHICH__MaKH__4BAC3F29">
+          <AssociationSet Name="FK__YEUTHICH__MaKH__286302EC" Association="QLBanDienThoaiModel.FK__YEUTHICH__MaKH__286302EC">
             <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
             <End Role="YEUTHICH" EntitySet="YEUTHICHes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KHACHHANG_ROLES" Association="QLBanDienThoaiModel.FK_KHACHHANG_ROLES">
+            <End Role="ROLE" EntitySet="ROLES" />
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
           </AssociationSet>
           <AssociationSet Name="FK_LoaiSanPham" Association="QLBanDienThoaiModel.FK_LoaiSanPham">
             <End Role="LOAISANPHAM" EntitySet="LOAISANPHAMs" />
@@ -370,12 +421,25 @@
             <End Role="NHACUNGCAP" EntitySet="NHACUNGCAPs" />
             <End Role="SANPHAM" EntitySet="SANPHAMs" />
           </AssociationSet>
-          <AssociationSet Name="FK__YEUTHICH__MaSanP__4CA06362" Association="QLBanDienThoaiModel.FK__YEUTHICH__MaSanP__4CA06362">
+          <AssociationSet Name="FK__YEUTHICH__MaSanP__29572725" Association="QLBanDienThoaiModel.FK__YEUTHICH__MaSanP__29572725">
             <End Role="SANPHAM" EntitySet="SANPHAMs" />
             <End Role="YEUTHICH" EntitySet="YEUTHICHes" />
           </AssociationSet>
-          <EntitySet Name="ADMINs" EntityType="QLBanDienThoaiModel.ADMIN" />
         </EntityContainer>
+        <EntityType Name="ADMIN">
+          <Key>
+            <PropertyRef Name="TaiKhoan" />
+          </Key>
+          <Property Name="TaiKhoan" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MatKhau" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TenAdmin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="ROLE" Relationship="QLBanDienThoaiModel.FK_ADMIN_ROLES" FromRole="ADMIN" ToRole="ROLE" />
+        </EntityType>
         <EntityType Name="Banner">
           <Key>
             <PropertyRef Name="ID" />
@@ -470,10 +534,11 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DienThoai" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="Boolean" />
+          <Property Name="RoleID" Type="Int32" />
           <NavigationProperty Name="DONDATHANGs" Relationship="QLBanDienThoaiModel.FK_DONDATHANG_KHACHHANG" FromRole="KHACHHANG" ToRole="DONDATHANG" />
           <NavigationProperty Name="GioHangs" Relationship="QLBanDienThoaiModel.FK_GIOHANG_KHACHHANG" FromRole="KHACHHANG" ToRole="GioHang" />
-          <NavigationProperty Name="YEUTHICHes" Relationship="QLBanDienThoaiModel.FK__YEUTHICH__MaKH__4BAC3F29" FromRole="KHACHHANG" ToRole="YEUTHICH" />
-          <Property Name="IsAdmin" Type="Boolean" />
+          <NavigationProperty Name="YEUTHICHes" Relationship="QLBanDienThoaiModel.FK__YEUTHICH__MaKH__286302EC" FromRole="KHACHHANG" ToRole="YEUTHICH" />
+          <NavigationProperty Name="ROLE" Relationship="QLBanDienThoaiModel.FK_KHACHHANG_ROLES" FromRole="KHACHHANG" ToRole="ROLE" />
         </EntityType>
         <EntityType Name="LOAISANPHAM">
           <Key>
@@ -493,6 +558,15 @@
           <Property Name="DienThoai" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SANPHAMs" Relationship="QLBanDienThoaiModel.FK_NhaXB" FromRole="NHACUNGCAP" ToRole="SANPHAM" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ADMINs" Relationship="QLBanDienThoaiModel.FK_ADMIN_ROLES" FromRole="ROLE" ToRole="ADMIN" />
+          <NavigationProperty Name="KHACHHANGs" Relationship="QLBanDienThoaiModel.FK_KHACHHANG_ROLES" FromRole="ROLE" ToRole="KHACHHANG" />
         </EntityType>
         <EntityType Name="SANPHAM">
           <Key>
@@ -527,7 +601,7 @@
           <NavigationProperty Name="GioHangs" Relationship="QLBanDienThoaiModel.FK_GIOHANG_SANPHAM" FromRole="SANPHAM" ToRole="GioHang" />
           <NavigationProperty Name="LOAISANPHAM" Relationship="QLBanDienThoaiModel.FK_LoaiSanPham" FromRole="SANPHAM" ToRole="LOAISANPHAM" />
           <NavigationProperty Name="NHACUNGCAP" Relationship="QLBanDienThoaiModel.FK_NhaXB" FromRole="SANPHAM" ToRole="NHACUNGCAP" />
-          <NavigationProperty Name="YEUTHICHes" Relationship="QLBanDienThoaiModel.FK__YEUTHICH__MaSanP__4CA06362" FromRole="SANPHAM" ToRole="YEUTHICH" />
+          <NavigationProperty Name="YEUTHICHes" Relationship="QLBanDienThoaiModel.FK__YEUTHICH__MaSanP__29572725" FromRole="SANPHAM" ToRole="YEUTHICH" />
         </EntityType>
         <EntityType Name="YEUTHICH">
           <Key>
@@ -540,9 +614,21 @@
           <Property Name="GiaBan" Type="Decimal" Nullable="false" Precision="18" Scale="10" />
           <Property Name="AnhBia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TinhTrang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="KHACHHANG" Relationship="QLBanDienThoaiModel.FK__YEUTHICH__MaKH__4BAC3F29" FromRole="YEUTHICH" ToRole="KHACHHANG" />
-          <NavigationProperty Name="SANPHAM" Relationship="QLBanDienThoaiModel.FK__YEUTHICH__MaSanP__4CA06362" FromRole="YEUTHICH" ToRole="SANPHAM" />
+          <NavigationProperty Name="KHACHHANG" Relationship="QLBanDienThoaiModel.FK__YEUTHICH__MaKH__286302EC" FromRole="YEUTHICH" ToRole="KHACHHANG" />
+          <NavigationProperty Name="SANPHAM" Relationship="QLBanDienThoaiModel.FK__YEUTHICH__MaSanP__29572725" FromRole="YEUTHICH" ToRole="SANPHAM" />
         </EntityType>
+        <Association Name="FK_ADMIN_ROLES">
+          <End Type="QLBanDienThoaiModel.ROLE" Role="ROLE" Multiplicity="0..1" />
+          <End Type="QLBanDienThoaiModel.ADMIN" Role="ADMIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="ADMIN">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CHITIETDONTHANG_DONDATHANG">
           <End Type="QLBanDienThoaiModel.DONDATHANG" Role="DONDATHANG" Multiplicity="1" />
           <End Type="QLBanDienThoaiModel.CHITIETDONTHANG" Role="CHITIETDONTHANG" Multiplicity="*" />
@@ -603,7 +689,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__YEUTHICH__MaKH__4BAC3F29">
+        <Association Name="FK__YEUTHICH__MaKH__286302EC">
           <End Type="QLBanDienThoaiModel.KHACHHANG" Role="KHACHHANG" Multiplicity="1" />
           <End Type="QLBanDienThoaiModel.YEUTHICH" Role="YEUTHICH" Multiplicity="*" />
           <ReferentialConstraint>
@@ -612,6 +698,18 @@
             </Principal>
             <Dependent Role="YEUTHICH">
               <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KHACHHANG_ROLES">
+          <End Type="QLBanDienThoaiModel.ROLE" Role="ROLE" Multiplicity="0..1" />
+          <End Type="QLBanDienThoaiModel.KHACHHANG" Role="KHACHHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="KHACHHANG">
+              <PropertyRef Name="RoleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -639,7 +737,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__YEUTHICH__MaSanP__4CA06362">
+        <Association Name="FK__YEUTHICH__MaSanP__29572725">
           <End Type="QLBanDienThoaiModel.SANPHAM" Role="SANPHAM" Multiplicity="1" />
           <End Type="QLBanDienThoaiModel.YEUTHICH" Role="YEUTHICH" Multiplicity="*" />
           <ReferentialConstraint>
@@ -651,24 +749,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ADMIN">
-          <Key>
-            <PropertyRef Name="TaiKhoan" />
-          </Key>
-          <Property Name="TaiKhoan" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MatKhau" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="TenAdmin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SDT" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QLBanDienThoaiModelStoreContainer" CdmEntityContainer="QLBanDienThoaiEntities">
+          <EntitySetMapping Name="ADMINs">
+            <EntityTypeMapping TypeName="QLBanDienThoaiModel.ADMIN">
+              <MappingFragment StoreEntitySet="ADMIN">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="TenAdmin" ColumnName="TenAdmin" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Banners">
             <EntityTypeMapping TypeName="QLBanDienThoaiModel.Banner">
               <MappingFragment StoreEntitySet="Banner">
@@ -750,7 +850,7 @@
           <EntitySetMapping Name="KHACHHANGs">
             <EntityTypeMapping TypeName="QLBanDienThoaiModel.KHACHHANG">
               <MappingFragment StoreEntitySet="KHACHHANG">
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -779,6 +879,14 @@
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="TenNCC" ColumnName="TenNCC" />
                 <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLES">
+            <EntityTypeMapping TypeName="QLBanDienThoaiModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLES">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -822,19 +930,6 @@
                 <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
                 <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ADMINs">
-            <EntityTypeMapping TypeName="QLBanDienThoaiModel.ADMIN">
-              <MappingFragment StoreEntitySet="ADMIN">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-                <ScalarProperty Name="TenAdmin" ColumnName="TenAdmin" />
-                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
-                <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

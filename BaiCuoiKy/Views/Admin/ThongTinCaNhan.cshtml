@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "ThongTinCaNhan";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-panel position-absolute" style="left: 14.3%">
+    <div class="content-wrapper">
+        <div class="container p-3">
+            <div class="row p-4">
+                <div class="col-6">
+                    <h2 class="text-primary">Thông tin cá nhân</h2>
+                </div>
+                <div class="col-6 text-end">
+                    <a href="#" class="btn btn-primary">
+                        <i class="menu-icon mdi mdi-account-edit"></i>&nbsp; Chỉnh sửa
+                    </a>
+                </div>
+            </div>
+
+            <table class="table mx-auto" style="width: 80%">
+                <thead>
+                    <tr>
+                        <th class="col-2 text-primary"></th>
+                        <th class="col-4 text-primary"></th>
+                        <th class="col-4 text-primary"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="6">
+                            <img style="width:60%; height: auto" class="img-md rounded-circle" src="../../assets/images/faces/user.png" alt="Profile image">
+                        </td>
+                        <td><h4>Họ tên:</h4></td>
+                        <td><h4>@ViewBag.User.TenAdmin</h4></td>
+                    </tr>
+                    <tr class="table-active">
+                        <td class="bold"><h4>Tài khoản:</h4></td>
+                        <td><h4>@ViewBag.User.TaiKhoan</h4></td>
+                    </tr>
+                    <tr>
+                        <td class="bold"><h4>Ngày sinh:</h4></td>
+                        <td><h4>@ViewBag.User.NgaySinh</h4></td>
+                    </tr>
+                    <tr class="table-active">
+                        <td class="bold"><h4>Số điện thoại:</h4></td>
+                        <td><h4>@ViewBag.User.SDT</h4></td>
+                    </tr>
+                    <tr>
+                        <td class="bold"><h4>Email:</h4></td>
+                        <td><h4>@ViewBag.User.Email</h4></td>
+                    </tr>
+                    <tr class="table-active">
+                        <td class="bold"><h4>Địa chỉ:</h4></td>
+                        <td><h4>@ViewBag.User.DiaChi</h4></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

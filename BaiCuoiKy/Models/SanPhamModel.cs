@@ -22,7 +22,7 @@ namespace BaiCuoiKy.Models
         public int? Sao { get; set; }
         public string Mau1 { get; set; }
         public string Mau2 { get; set; }
-        public string SoLuong { get; set; }
+        public int? SoLuong { get; set; }
     }
 
     public class LSPModel

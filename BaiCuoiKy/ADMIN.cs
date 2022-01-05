@@ -21,5 +21,8 @@ namespace BaiCuoiKy
         public string DiaChi { get; set; }
         public string SDT { get; set; }
         public string Email { get; set; }
+        public Nullable<int> RoleID { get; set; }
+    
+        public virtual ROLE ROLE { get; set; }
     }
 }

@@ -168,8 +168,10 @@
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\BlogModel.cs" />
+    <Compile Include="Models\CustomRoleProvider.cs" />
     <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\DoanhThuModel.cs" />
+    <Compile Include="Models\DonDatHangModel.cs" />
     <Compile Include="Models\GioHangModel.cs" />
     <Compile Include="Models\SanPhamModel.cs" />
     <Compile Include="Models\ThanhToanModel.cs" />
@@ -192,6 +194,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QuanLyBanDienThoai.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ROLE.cs">
+      <DependentUpon>QuanLyBanDienThoai.tt</DependentUpon>
     </Compile>
     <Compile Include="SANPHAM.cs">
       <DependentUpon>QuanLyBanDienThoai.tt</DependentUpon>
@@ -3075,9 +3080,15 @@
     <Content Include="Views\Admin\DangNhap.cshtml" />
     <Content Include="Views\Shared\_Notification.cshtml" />
     <Content Include="Views\Admin\_NavBar.cshtml" />
+    <Content Include="Views\Admin\QLSanPham.cshtml" />
+    <Content Include="Views\Admin\QLLoaiSanPham.cshtml" />
+    <Content Include="Views\Admin\QLNhaCungCap.cshtml" />
+    <Content Include="Views\Admin\QLDonHang.cshtml" />
+    <Content Include="Views\Admin\ThongTinCaNhan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DonDatHang\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

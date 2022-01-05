@@ -25,6 +25,7 @@ namespace BaiCuoiKy
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ADMIN> ADMINs { get; set; }
         public virtual DbSet<Banner> Banners { get; set; }
         public virtual DbSet<BLOG> BLOGs { get; set; }
         public virtual DbSet<CHITIETDONTHANG> CHITIETDONTHANGs { get; set; }
@@ -33,8 +34,8 @@ namespace BaiCuoiKy
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
         public virtual DbSet<LOAISANPHAM> LOAISANPHAMs { get; set; }
         public virtual DbSet<NHACUNGCAP> NHACUNGCAPs { get; set; }
+        public virtual DbSet<ROLE> ROLES { get; set; }
         public virtual DbSet<SANPHAM> SANPHAMs { get; set; }
         public virtual DbSet<YEUTHICH> YEUTHICHes { get; set; }
-        public virtual DbSet<ADMIN> ADMINs { get; set; }
     }
 }

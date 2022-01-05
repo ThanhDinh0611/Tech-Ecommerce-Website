@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "QLDonHang";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-panel position-absolute" style="left: 14.3%">
+    <div class="content-wrapper">
+        <div class="container p-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row p-4">
+                        <div class="col-6">
+                            <h2 class="text-primary">Danh sách đơn hàng đã giao</h2>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-striped" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th class="col-1 text-primary">Mã đơn hàng</th>
+                                <th class="col-2 text-primary">Tên khách hàng</th>
+                                <th class="col-2 text-primary">Ngày đặt hàng</th>
+                                <th class="col-2 text-primary">Ngày giao hàng</th>
+                                <th class="col-1 text-primary">Tổng tiền</th>
+                                <th class="col-4 text-primary">Yêu cầu</th>
+                                <th class="col-2 text-primary"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.DeliveredOrders)
+                            {
+                                <tr>
+                                    <td>@item.MaDonHang</td>
+                                    <td>@item.TenKhachHang</td>
+                                    <td>@item.NgayDat</td>
+                                    <td>@item.NgayGiao</td>
+                                    <td>@String.Format("{0:0,0}", item.TongTien)</td>
+                                    <td class="overflow-auto" style="max-width: 110px">@item.YeuCau</td>
+                                    <td class="d-flex justify-content-center">
+                                        <a href="#" class="btn btn-danger mx-1">Xóa</a>
+                                        <a href="#" class="btn btn-info mx-1">Chỉnh sửa</a>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="row p-4">
+                        <div class="col-6">
+                            <h2 class="text-primary">Danh sách đơn hàng đã giao</h2>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-striped" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th class="col-1 text-primary">Mã đơn hàng</th>
+                                <th class="col-2 text-primary">Tên khách hàng</th>
+                                <th class="col-2 text-primary">Ngày đặt hàng</th>
+                                <th class="col-2 text-primary">Ngày giao hàng</th>
+                                <th class="col-1 text-primary">Tổng tiền</th>
+                                <th class="col-4 text-primary">Yêu cầu</th>
+                                <th class="col-2 text-primary"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.UndeliveredOrders)
+                            {
+                                <tr>
+                                    <td>@item.MaDonHang</td>
+                                    <td>@item.TenKhachHang</td>
+                                    <td>@item.NgayDat</td>
+                                    <td>@item.NgayGiao</td>
+                                    <td>@String.Format("{0:0,0}", item.TongTien)</td>
+                                    <td class="overflow-auto" style="max-width: 110px">@item.YeuCau</td>
+                                    <td class="d-flex justify-content-center">
+                                        <a href="#" class="btn btn-danger mx-1">Xóa</a>
+                                        <a href="#" class="btn btn-info mx-1">Chỉnh sửa</a>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
