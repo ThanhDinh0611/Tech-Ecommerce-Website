@@ -348,6 +348,183 @@ namespace BaiCuoiKy.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult ThemLoaiSanPham()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult ThemLoaiSanPham(LOAISANPHAM model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.DaXoa = false;
+                db.LOAISANPHAMs.Add(model);
+                db.SaveChanges();
+                return Content("<script language='javascript' type='text/javascript'>alert('Thêm loại sản phẩm thành công!'); window.location = '../../Admin/QLLoaiSanPham';</script>");
+            }
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult XoaLoaiSanPham(int id)
+        {
+            var ProductType = db.LOAISANPHAMs.SingleOrDefault(item => item.MaLSP == id);
+            if(ProductType != null)
+            {
+                return View(ProductType);
+            }
+            return RedirectToAction("QLLoaiSanPham");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult XoaLoaiSanPham(LOAISANPHAM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var ProductType = db.LOAISANPHAMs.SingleOrDefault(item => item.MaLSP == model.MaLSP);
+                if(ProductType != null)
+                {
+                    //Delete Products if any
+                    var Products = db.SANPHAMs.Where(item => item.MaLSP == ProductType.MaLSP);
+                    foreach(var Product in Products)
+                    {
+                        Product.DaXoa = true;
+                    }
+                    ProductType.DaXoa = true;
+                    db.SaveChanges();
+                    return Content("<script language='javascript' type='text/javascript'>alert('Xóa loại sản phẩm thành công!'); window.location = '../../Admin/QLLoaiSanPham';</script>");
+                }
+                return RedirectToAction("QLLoaiSanPham");
+            }
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult ChinhSuaLoaiSanPham(int id)
+        {
+            var ProductType = db.LOAISANPHAMs.SingleOrDefault(item => item.MaLSP == id);
+            if (ProductType != null)
+            {
+                return View(ProductType);
+            }
+            return RedirectToAction("QLLoaiSanPham");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult ChinhSuaLoaiSanPham(LOAISANPHAM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var ProductType = db.LOAISANPHAMs.SingleOrDefault(item => item.MaLSP == model.MaLSP);
+                if (ProductType != null)
+                {
+                    ProductType.TenLoaiSanPham = model.TenLoaiSanPham;
+                    db.SaveChanges();
+                    return Content("<script language='javascript' type='text/javascript'>alert('Chỉnh sửa loại sản phẩm thành công!'); window.location = '../../Admin/QLLoaiSanPham';</script>");
+                }
+            }
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult ThemNhaCungCap()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult ThemNhaCungCap(NHACUNGCAP model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.DaXoa = false;
+                db.NHACUNGCAPs.Add(model);
+                db.SaveChanges();
+                return Content("<script language='javascript' type='text/javascript'>alert('Thêm nhà cung cấp thành công!'); window.location = '../../Admin/QLNhaCungCap';</script>");
+            }
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult XoaNhaCungCap(int id)
+        {
+            var Vendor = db.NHACUNGCAPs.SingleOrDefault(item => item.MaNCC == id);
+            if (Vendor != null)
+            {
+                return View(Vendor);
+            }
+            return RedirectToAction("QLNhaCungCap");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult XoaNhaCungCap(NHACUNGCAP model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Vendor = db.NHACUNGCAPs.SingleOrDefault(item => item.MaNCC == model.MaNCC);
+                if (Vendor != null)
+                {
+                    //Delete Products if any
+                    var Products = db.SANPHAMs.Where(item => item.MaNCC == Vendor.MaNCC);
+                    foreach (var Product in Products)
+                    {
+                        Product.DaXoa = true;
+                    }
+                    Vendor.DaXoa = true;
+                    db.SaveChanges();
+                    return Content("<script language='javascript' type='text/javascript'>alert('Xóa nhà cung cấp thành công!'); window.location = '../../Admin/QLNhaCungCap';</script>");
+                }
+                return RedirectToAction("QLNhaCungCap");
+            }
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult ChinhSuaNhaCungCap(int id)
+        {
+            var Vendor = db.NHACUNGCAPs.SingleOrDefault(item => item.MaNCC == id);
+            if (Vendor != null)
+            {
+                return View(Vendor);
+            }
+            return RedirectToAction("QLLoaiSanPham");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult ChinhSuaNhaCungCap(NHACUNGCAP model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Vendor = db.NHACUNGCAPs.SingleOrDefault(item => item.MaNCC == model.MaNCC);
+                if (Vendor != null)
+                {
+                    Vendor.DiaChi = model.DiaChi;
+                    Vendor.DienThoai = model.DienThoai;
+                    Vendor.Logo = model.Logo;
+                    Vendor.TenNCC = model.TenNCC;
+                    db.SaveChanges();
+                    return Content("<script language='javascript' type='text/javascript'>alert('Chỉnh sửa nhà cung cấp thành công!'); window.location = '../../Admin/QLNhaCungCap';</script>");
+                }
+            }
+            return View();
+        }
+
+
+        [Authorize(Roles = "admin")]
         public ActionResult _NavBar()
         {
             ADMIN TaiKhoan = Session["TaiKhoan"] as ADMIN;

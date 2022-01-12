@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "ThemNhaCungCap";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@Html.ValidationSummary(true)
+@model BaiCuoiKy.NHACUNGCAP
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="container p-3">
+            <div class="row p-4">
+                <div>
+                    <h2 class="text-primary">Thêm nhà cung cấp</h2>
+                    <hr />
+                </div>
+            </div>
+
+            @using (Html.BeginForm("ThemNhaCungCap", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(item => item.TenNCC)
+                    @Html.TextBoxFor(item => item.TenNCC,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Tên nhà cung cấp"
+                    })
+                    @Html.ValidationMessageFor(item => item.TenNCC, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.DiaChi)
+                    @Html.TextBoxFor(item => item.DiaChi,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Địa chỉ"
+                    })
+                    @Html.ValidationMessageFor(item => item.DiaChi, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.DienThoai)
+                    @Html.TextBoxFor(item => item.DienThoai,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Số điện thoại"
+                    })
+                    @Html.ValidationMessageFor(item => item.DienThoai, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.Logo)
+                    @Html.TextBoxFor(item => item.Logo,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Đướng dẫn logo"
+                    })
+                    @Html.ValidationMessageFor(item => item.Logo, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn">
+                    <span>Thêm nhà cung cấp</span>
+                </button>
+            }
+        </div>
+
+    </div>
+</div>
+
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.intellisense.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.slim.js"></script>
+<script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

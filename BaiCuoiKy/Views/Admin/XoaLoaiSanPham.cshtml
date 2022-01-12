@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "XoaLoaiSanPham";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@Html.ValidationSummary(true)
+@model BaiCuoiKy.LOAISANPHAM
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="container p-3">
+            <div class="row p-4">
+                <div>
+                    <h2 class="text-primary">Xóa loại sản phẩm</h2>
+                    <hr />
+                </div>
+            </div>
+
+            @using (Html.BeginForm("XoaLoaiSanPham", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+
+                    @Html.LabelFor(item => item.MaLSP)
+                    @Html.TextBoxFor(item => item.MaLSP,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Mã loại sản phẩm"
+                    })
+                    @Html.ValidationMessageFor(item => item.MaLSP, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.TenLoaiSanPham)
+                    @Html.TextBoxFor(item => item.TenLoaiSanPham,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Tên loại sản phẩm"
+                    })
+                    @Html.ValidationMessageFor(item => item.TenLoaiSanPham, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn">
+                    <span>Xóa loại sản phẩm</span>
+                </button>
+            }
+        </div>
+
+    </div>
+</div>

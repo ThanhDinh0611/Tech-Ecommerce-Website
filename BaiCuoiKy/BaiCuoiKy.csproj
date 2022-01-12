@@ -3343,6 +3343,12 @@
     <Content Include="Views\Shared\EditorTemplates\tinymce_full_compressed.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
     <Content Include="Views\Admin\ChinhSuaSanPham.cshtml" />
+    <Content Include="Views\Admin\ThemLoaiSanPham.cshtml" />
+    <Content Include="Views\Admin\XoaLoaiSanPham.cshtml" />
+    <Content Include="Views\Admin\ChinhSuaLoaiSanPham.cshtml" />
+    <Content Include="Views\Admin\ThemNhaCungCap.cshtml" />
+    <Content Include="Views\Admin\XoaNhaCungCap.cshtml" />
+    <Content Include="Views\Admin\ChinhSuaNhaCungCap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

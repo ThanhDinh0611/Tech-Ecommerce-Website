@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "XoaNhaCungCap";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@Html.ValidationSummary(true)
+@model BaiCuoiKy.NHACUNGCAP
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="container p-3">
+            <div class="row p-4">
+                <div>
+                    <h2 class="text-primary">Xóa nhà cung cấp</h2>
+                    <hr />
+                </div>
+            </div>
+
+            @using (Html.BeginForm("XoaNhaCungCap", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.MaNCC)
+                    @Html.TextBoxFor(item => item.MaNCC,
+                    new
+                    {
+                        @hidden = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                    })
+                    @Html.ValidationMessageFor(item => item.TenNCC, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.TenNCC)
+                    @Html.TextBoxFor(item => item.TenNCC,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Tên nhà cung cấp"
+                    })
+                    @Html.ValidationMessageFor(item => item.TenNCC, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.DiaChi)
+                    @Html.TextBoxFor(item => item.DiaChi,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Tên loại sản phẩm"
+                    })
+                    @Html.ValidationMessageFor(item => item.DiaChi, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.DienThoai)
+                    @Html.TextBoxFor(item => item.DienThoai,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Tên loại sản phẩm"
+                    })
+                    @Html.ValidationMessageFor(item => item.DienThoai, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.Logo)
+                    @Html.TextBoxFor(item => item.Logo,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Tên loại sản phẩm"
+                    })
+                    @Html.ValidationMessageFor(item => item.Logo, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn">
+                    <span>Xóa nhà cung cấp</span>
+                </button>
+            }
+        </div>
+
+    </div>
+</div>
