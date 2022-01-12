@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewBag.Title = "ThemSanPham";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.ValidationSummary(true)
+@model BaiCuoiKy.SANPHAM
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="container p-3">
+            <div class="row p-4">
+                <div>
+                    <h2 class="text-primary">Thêm sản phẩm mới</h2>
+                    <hr />
+                </div>
+            </div>
+
+            @using (Html.BeginForm("ThemSanPham", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.MaLSP)
+                    @Html.DropDownListFor(item => item.MaLSP,
+                    ViewBag.ProductTypes as SelectList,
+                    new
+                    {
+                        @class = "form-control form-control-lg",
+                    })
+                    @Html.ValidationMessageFor(item => item.MaLSP, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.MaNCC)
+                    @Html.DropDownListFor(item => item.MaNCC,
+                    ViewBag.Vendors as SelectList,
+                    new
+                    {
+                        @class = "form-control form-control-lg",
+                    })
+                    @Html.ValidationMessageFor(item => item.MaNCC, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.TenSanPham)
+                    @Html.TextBoxFor(item => item.TenSanPham,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Tên sản phẩm"
+                    })
+                    @Html.ValidationMessageFor(item => item.TenSanPham, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.GiaBan)
+                    @Html.TextBoxFor(item => item.GiaBan,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Giá bán"
+                    })
+                    @Html.ValidationMessageFor(item => item.GiaBan, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.ManHinh)
+                    @Html.TextBoxFor(item => item.ManHinh,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Thông tin màn hình"
+                    })
+                    @Html.ValidationMessageFor(item => item.ManHinh, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.HeDieuHanh)
+                    @Html.TextBoxFor(item => item.HeDieuHanh,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Hệ điều hành"
+                    })
+                    @Html.ValidationMessageFor(item => item.HeDieuHanh, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.CameraSau)
+                    @Html.TextBoxFor(item => item.CameraSau,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Camera sau"
+                    })
+                    @Html.ValidationMessageFor(item => item.CameraSau, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.CameraTruoc)
+                    @Html.TextBoxFor(item => item.CameraTruoc,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Camera trước"
+                    })
+                    @Html.ValidationMessageFor(item => item.CameraTruoc, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.CPU)
+                    @Html.TextBoxFor(item => item.CPU,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Thông tin CPU"
+                    })
+                    @Html.ValidationMessageFor(item => item.CPU, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.RAM)
+                    @Html.TextBoxFor(item => item.RAM,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Thông tin RAM"
+                    })
+                    @Html.ValidationMessageFor(item => item.RAM, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.BoNhoTrong)
+                    @Html.TextBoxFor(item => item.BoNhoTrong,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Bộ nhớ trong"
+                    })
+                    @Html.ValidationMessageFor(item => item.BoNhoTrong, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.SIM)
+                    @Html.TextBoxFor(item => item.SIM,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "SIM"
+                    })
+                    @Html.ValidationMessageFor(item => item.SIM, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.Pin)
+                    @Html.TextBoxFor(item => item.Pin,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Pin"
+                    })
+                    @Html.ValidationMessageFor(item => item.Pin, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.SoLuongTon)
+                    @Html.TextBoxFor(item => item.SoLuongTon,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Số lượng"
+                    })
+                    @Html.ValidationMessageFor(item => item.SoLuongTon, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.KhuyenMai)
+                    @Html.TextBoxFor(item => item.KhuyenMai,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "% khuyến mãi"
+                    })
+                    @Html.ValidationMessageFor(item => item.KhuyenMai, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.AnhBia)
+                    @Html.TextBoxFor(item => item.AnhBia,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Link ảnh sản phẩm"
+                    })
+                    @Html.ValidationMessageFor(item => item.AnhBia, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.AnhBia1)
+                    @Html.TextBoxFor(item => item.AnhBia1,
+                    new
+                    {
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Link ảnh sản phẩm"
+                    })
+                    @Html.ValidationMessageFor(item => item.AnhBia1, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.MoTa)
+                    <div class="col-md-12">
+                        @Html.EditorFor(item => item.MoTa)
+                        @Html.ValidationMessageFor(item => item.MoTa, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                    <span>Thêm sản phẩm</span>
+                </button>
+            }
+        </div>
+
+    </div>
+</div>
+
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.intellisense.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.slim.js"></script>
+<script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

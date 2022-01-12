@@ -1,0 +1,227 @@
+﻿
+@{
+    ViewBag.Title = "XoaSanPham";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model BaiCuoiKy.SANPHAM
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="container p-3">
+            <div class="row p-4">
+                <div>
+                    <h2 class="text-primary">Xóa sản phẩm</h2>
+                    <hr />
+                </div>
+            </div>
+
+            @using (Html.BeginForm("XoaSanPham", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.TextBoxFor(item => item.MaSanPham, new {@hidden = "true"})
+                <div class="form-group">
+                    @Html.LabelFor(item => item.MaLSP)
+                    <input type="text" value="@ViewBag.ProductType" disabled class="form-control form-control-lg"/>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.MaNCC)
+                    <input type="text" value="@ViewBag.Vendor" disabled class="form-control form-control-lg" />
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.TenSanPham)
+                    @Html.TextBoxFor(item => item.TenSanPham,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Tên sản phẩm"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.GiaBan)
+                    @Html.TextBoxFor(item => item.GiaBan,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Giá bán"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.ManHinh)
+                    @Html.TextBoxFor(item => item.ManHinh,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Thông tin màn hình"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.HeDieuHanh)
+                    @Html.TextBoxFor(item => item.HeDieuHanh,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Hệ điều hành"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.CameraSau)
+                    @Html.TextBoxFor(item => item.CameraSau,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Camera sau"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.CameraTruoc)
+                    @Html.TextBoxFor(item => item.CameraTruoc,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Camera trước"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.CPU)
+                    @Html.TextBoxFor(item => item.CPU,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Thông tin CPU"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.RAM)
+                    @Html.TextBoxFor(item => item.RAM,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Thông tin RAM"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.BoNhoTrong)
+                    @Html.TextBoxFor(item => item.BoNhoTrong,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Bộ nhớ trong"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.SIM)
+                    @Html.TextBoxFor(item => item.SIM,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "SIM"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.Pin)
+                    @Html.TextBoxFor(item => item.Pin,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Pin"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.SoLuongTon)
+                    @Html.TextBoxFor(item => item.SoLuongTon,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Số lượng"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.KhuyenMai)
+                    @Html.TextBoxFor(item => item.KhuyenMai,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "% khuyến mãi"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.AnhBia)
+                    @Html.TextBoxFor(item => item.AnhBia,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Link ảnh sản phẩm"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.AnhBia1)
+                    @Html.TextBoxFor(item => item.AnhBia1,
+                    new
+                    {
+                        @readonly = "true",
+                        type = "text",
+                        @class = "form-control form-control-lg",
+                        placeholder = "Link ảnh sản phẩm"
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(item => item.MoTa)
+                    <div class="col-md-12">
+                        @Html.EditorFor(item => item.MoTa)
+                        @Html.ValidationMessageFor(item => item.MoTa, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <button onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')" type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn">
+                    <span>Xóa sản phẩm</span>
+                </button>
+            }
+        </div>
+
+    </div>
+</div>

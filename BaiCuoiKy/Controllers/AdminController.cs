@@ -136,9 +136,11 @@ namespace BaiCuoiKy.Controllers
         public ActionResult QLSanPham()
         {
             //Get All Products
-            var ProductList = db.SANPHAMs.OrderBy(item => item.MaLSP)
+            var ProductList = db.SANPHAMs.Where(item => item.DaXoa == false)
+                .OrderBy(item => item.MaLSP)
                 .Select(item => new SanPhamModel()
                 {
+                    MaSanPham = item.MaSanPham,
                     AnhBia = item.AnhBia,
                     TenSanPham = item.TenSanPham,
                     TenLSP = item.LOAISANPHAM.TenLoaiSanPham,
@@ -154,7 +156,8 @@ namespace BaiCuoiKy.Controllers
         public ActionResult QLLoaiSanPham()
         {
             //Get All Product Types
-            var ProductTypes = db.LOAISANPHAMs.OrderBy(item => item.MaLSP).ToList();
+            var ProductTypes = db.LOAISANPHAMs.Where(item => item.DaXoa == false)
+                .OrderBy(item => item.MaLSP).ToList();
 
             ViewBag.ProductTypes = ProductTypes;
             return View();
@@ -164,7 +167,8 @@ namespace BaiCuoiKy.Controllers
         public ActionResult QLNhaCungCap()
         {
             //Get All Vendors
-            var Vendors = db.NHACUNGCAPs.OrderBy(item => item.MaNCC).ToList();
+            var Vendors = db.NHACUNGCAPs.Where(item => item.DaXoa == false)
+                .OrderBy(item => item.MaNCC).ToList();
 
             ViewBag.Vendors = Vendors;
             return View();
@@ -218,6 +222,130 @@ namespace BaiCuoiKy.Controllers
             }
 
             return RedirectToAction("DangNhap");
+        }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult ThemSanPham()
+        {
+            var ProductTypes = db.LOAISANPHAMs.Where(item => item.DaXoa == false).ToList();
+            var Vendors = db.NHACUNGCAPs.Where(item => item.DaXoa == false).ToList();
+            ViewBag.ProductTypes = new SelectList(ProductTypes, "MaLSP", "TenLoaiSanPham", null);
+            ViewBag.Vendors = new SelectList(Vendors, "MaNCC", "TenNCC", null);
+            return View();
+        }
+
+        [Authorize(Roles="admin")]
+        [HttpPost]
+        public ActionResult ThemSanPham(SANPHAM model)
+        {
+            if (ModelState.IsValid)
+            {
+                SANPHAM NewProduct = new SANPHAM()
+                {
+                    TenSanPham = model.TenSanPham,
+                    GiaBan = model.GiaBan,
+                    MoTa = model.MoTa,
+                    ManHinh = model.ManHinh,
+                    HeDieuHanh = model.HeDieuHanh,
+                    CameraSau = model.CameraSau,
+                    CameraTruoc = model.CameraTruoc,
+                    CPU = model.CPU,
+                    RAM = model.RAM,
+                    BoNhoTrong = model.BoNhoTrong,
+                    SIM = model.SIM,
+                    Pin = model.Pin,
+                    AnhBia = model.AnhBia,
+                    SoLuongTon = model.SoLuongTon,
+                    MaLSP = model.MaLSP,
+                    MaNCC = model.MaNCC,
+                    AnhBia1 = model.AnhBia1,
+                    KhuyenMai = model.KhuyenMai,
+                    Sao = 3,
+                    GiaSoc = false,
+                    Mau1 = "../../assets/images/Colours/black.png",
+                    Mau2 = "../../assets/images/Colours/black.png",
+                    DaXoa = false,
+                    NgayCapNhat = DateTime.Now
+                };
+                db.SANPHAMs.Add(NewProduct);
+                db.SaveChanges();
+                return Content("<script language='javascript' type='text/javascript'>alert('Thêm sản phẩm thành công!'); window.location = '../../Admin/QLSanPham';</script>");
+            }
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult XoaSanPham(int id)
+        {
+            var Product = db.SANPHAMs.SingleOrDefault(item => item.MaSanPham == id);
+            
+            if (Product != null)
+            {
+                ViewBag.ProductType = Product.LOAISANPHAM.TenLoaiSanPham;
+                ViewBag.Vendor = Product.NHACUNGCAP.TenNCC;
+                return View(Product);
+            }
+            return RedirectToAction("QLSanPham");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult XoaSanPham(SANPHAM model)
+        {
+            var Product = db.SANPHAMs.Single(item => item.MaSanPham == model.MaSanPham);
+            Product.DaXoa = true;
+            db.SaveChanges();
+            return RedirectToAction("QLSanPham");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult ChinhSuaSanPham(int id)
+        {
+            var Product = db.SANPHAMs.SingleOrDefault(item => item.MaSanPham == id);
+            var ProductTypes = db.LOAISANPHAMs.Where(item => item.DaXoa == false).ToList();
+            var Vendors = db.NHACUNGCAPs.Where(item => item.DaXoa == false).ToList();
+            ViewBag.ProductTypes = new SelectList(ProductTypes, "MaLSP", "TenLoaiSanPham", null);
+            ViewBag.Vendors = new SelectList(Vendors, "MaNCC", "TenNCC", null);
+            return View(Product);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult ChinhSuaSanPham(SANPHAM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Product = db.SANPHAMs.Single(item => item.MaSanPham == model.MaSanPham);
+                Product.TenSanPham = model.TenSanPham;
+                Product.GiaBan = model.GiaBan;
+                Product.MoTa = model.MoTa;
+                Product.ManHinh = model.ManHinh;
+                Product.HeDieuHanh = model.HeDieuHanh;
+                Product.CameraSau = model.CameraSau;
+                Product.CameraTruoc = model.CameraTruoc;
+                Product.CPU = model.CPU;
+                Product.RAM = model.RAM;
+                Product.BoNhoTrong = model.BoNhoTrong;
+                Product.SIM = model.SIM;
+                Product.Pin = model.Pin;
+                Product.AnhBia = model.AnhBia;
+                Product.SoLuongTon = model.SoLuongTon;
+                Product.MaLSP = model.MaLSP;
+                Product.MaNCC = model.MaNCC;
+                Product.AnhBia1 = model.AnhBia1;
+                Product.KhuyenMai = model.KhuyenMai;
+                Product.Sao = model.Sao;
+                Product.GiaSoc = model.GiaSoc;
+                Product.Mau1 = "../../assets/images/Colours/black.png";
+                Product.Mau2 = "../../assets/images/Colours/black.png";
+                Product.DaXoa = false;
+                Product.NgayCapNhat = DateTime.Now;
+                db.SaveChanges();
+                return Content("<script language='javascript' type='text/javascript'>alert('Chỉnh sửa sản phẩm thành công!'); window.location = '../../Admin/QLSanPham';</script>");
+            }
+            return View();
         }
 
         public ActionResult _NavBar()

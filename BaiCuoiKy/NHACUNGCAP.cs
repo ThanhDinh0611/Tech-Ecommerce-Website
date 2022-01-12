@@ -25,6 +25,7 @@ namespace BaiCuoiKy
         public string DiaChi { get; set; }
         public string DienThoai { get; set; }
         public string Logo { get; set; }
+        public Nullable<bool> DaXoa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SANPHAM> SANPHAMs { get; set; }

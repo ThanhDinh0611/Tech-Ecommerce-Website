@@ -225,7 +225,7 @@
         </div>
         <!-- partial -->
         <!-- partial:partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas position-fixed" id="sidebar">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Index", "Admin", new {id = DateTime.Now.Year})">
@@ -280,6 +280,14 @@
         <!-- partial -->
         @RenderBody()
     </div>
+    <footer class="footer block">
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 Thành Duy. All Rights Reserved.</p><!-- End .footer-copyright -->
+
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer>
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>

@@ -114,6 +114,7 @@
           </Key>
           <Property Name="MaLSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenLoaiSanPham" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DaXoa" Type="bit" />
         </EntityType>
         <EntityType Name="NHACUNGCAP">
           <Key>
@@ -124,6 +125,7 @@
           <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
           <Property Name="DienThoai" Type="varchar" MaxLength="50" />
           <Property Name="Logo" Type="nvarchar(max)" />
+          <Property Name="DaXoa" Type="bit" />
         </EntityType>
         <EntityType Name="ROLES">
           <Key>
@@ -547,6 +549,7 @@
           <Property Name="MaLSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLoaiSanPham" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SANPHAMs" Relationship="QLBanDienThoaiModel.FK_LoaiSanPham" FromRole="LOAISANPHAM" ToRole="SANPHAM" />
+          <Property Name="DaXoa" Type="Boolean" />
         </EntityType>
         <EntityType Name="NHACUNGCAP">
           <Key>
@@ -558,6 +561,7 @@
           <Property Name="DienThoai" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SANPHAMs" Relationship="QLBanDienThoaiModel.FK_NhaXB" FromRole="NHACUNGCAP" ToRole="SANPHAM" />
+          <Property Name="DaXoa" Type="Boolean" />
         </EntityType>
         <EntityType Name="ROLE">
           <Key>
@@ -866,6 +870,7 @@
           <EntitySetMapping Name="LOAISANPHAMs">
             <EntityTypeMapping TypeName="QLBanDienThoaiModel.LOAISANPHAM">
               <MappingFragment StoreEntitySet="LOAISANPHAM">
+                <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
                 <ScalarProperty Name="TenLoaiSanPham" ColumnName="TenLoaiSanPham" />
                 <ScalarProperty Name="MaLSP" ColumnName="MaLSP" />
               </MappingFragment>
@@ -874,6 +879,7 @@
           <EntitySetMapping Name="NHACUNGCAPs">
             <EntityTypeMapping TypeName="QLBanDienThoaiModel.NHACUNGCAP">
               <MappingFragment StoreEntitySet="NHACUNGCAP">
+                <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
                 <ScalarProperty Name="Logo" ColumnName="Logo" />
                 <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
