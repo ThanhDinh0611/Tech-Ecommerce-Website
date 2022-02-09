@@ -70,6 +70,12 @@
                                                 <td>Shipping:</td>
                                                 <td>@(Model.GioHang.Shipping == 2? "Thường":"Nhanh")</td>
                                             </tr>
+
+                                            <tr>
+                                                <td>Thanh toán:</td>
+                                                <td>@(Model.GioHang.COD? "COD":"Ngân hàng")</td>
+                                            </tr>
+
                                             <tr class="summary-total">
                                                 <td>Tổng cộng:</td>
                                                 <td>@String.Format("{0:0,0}", Model.GioHang.TongTienSauShip)đ</td>
@@ -77,12 +83,25 @@
                                         }
 
 
+
+
                                     </tbody>
                                 </table><!-- End .table table-summary -->
 
-                                <button  type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
                                     <span class="btn-text">Đặt hàng</span>
-                                    <span class="btn-hover-text">Thanh toán</span>
+                                    @if (Model.GioHang != null)
+                                    {
+                                        if (!Model.GioHang.COD)
+                                        {
+                                            <span class="btn-hover-text">Thanh toán</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="btn-hover-text">Đặt hàng</span>
+                                        }
+                                    }
+
                                 </button>
                             </div><!-- End .summary -->
                         </aside><!-- End .col-lg-3 -->

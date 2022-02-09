@@ -65,6 +65,7 @@
           <Property Name="MaSanPham" Type="int" Nullable="false" />
           <Property Name="SoLuong" Type="int" />
           <Property Name="DonGia" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DaXoa" Type="bit" />
         </EntityType>
         <EntityType Name="DONDATHANG">
           <Key>
@@ -78,6 +79,8 @@
           <Property Name="MaKH" Type="int" />
           <Property Name="YeuCau" Type="nvarchar(max)" />
           <Property Name="TongTien" Type="decimal" Precision="20" Scale="0" />
+          <Property Name="DaXoa" Type="bit" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
@@ -491,6 +494,7 @@
           <Property Name="DonGia" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="DONDATHANG" Relationship="QLBanDienThoaiModel.FK_CHITIETDONTHANG_DONDATHANG" FromRole="CHITIETDONTHANG" ToRole="DONDATHANG" />
           <NavigationProperty Name="SANPHAM" Relationship="QLBanDienThoaiModel.FK_CHITIETDONTHANG_SACH" FromRole="CHITIETDONTHANG" ToRole="SANPHAM" />
+          <Property Name="DaXoa" Type="Boolean" />
         </EntityType>
         <EntityType Name="DONDATHANG">
           <Key>
@@ -506,6 +510,8 @@
           <Property Name="TongTien" Type="Decimal" Precision="20" Scale="0" />
           <NavigationProperty Name="CHITIETDONTHANGs" Relationship="QLBanDienThoaiModel.FK_CHITIETDONTHANG_DONDATHANG" FromRole="DONDATHANG" ToRole="CHITIETDONTHANG" />
           <NavigationProperty Name="KHACHHANG" Relationship="QLBanDienThoaiModel.FK_DONDATHANG_KHACHHANG" FromRole="DONDATHANG" ToRole="KHACHHANG" />
+          <Property Name="DaXoa" Type="Boolean" />
+          <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
@@ -816,6 +822,7 @@
           <EntitySetMapping Name="CHITIETDONTHANGs">
             <EntityTypeMapping TypeName="QLBanDienThoaiModel.CHITIETDONTHANG">
               <MappingFragment StoreEntitySet="CHITIETDONTHANG">
+                <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
@@ -826,6 +833,8 @@
           <EntitySetMapping Name="DONDATHANGs">
             <EntityTypeMapping TypeName="QLBanDienThoaiModel.DONDATHANG">
               <MappingFragment StoreEntitySet="DONDATHANG">
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
                 <ScalarProperty Name="TongTien" ColumnName="TongTien" />
                 <ScalarProperty Name="YeuCau" ColumnName="YeuCau" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />

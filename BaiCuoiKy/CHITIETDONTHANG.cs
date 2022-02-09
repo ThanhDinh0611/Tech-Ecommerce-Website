@@ -18,6 +18,7 @@ namespace BaiCuoiKy
         public int MaSanPham { get; set; }
         public Nullable<int> SoLuong { get; set; }
         public Nullable<decimal> DonGia { get; set; }
+        public Nullable<bool> DaXoa { get; set; }
     
         public virtual DONDATHANG DONDATHANG { get; set; }
         public virtual SANPHAM SANPHAM { get; set; }

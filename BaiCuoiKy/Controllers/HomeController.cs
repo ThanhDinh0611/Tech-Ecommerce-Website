@@ -76,8 +76,8 @@ namespace BaiCuoiKy.Controllers
         {
             //Get Product Info with id
             QLBanDienThoaiEntities db = new QLBanDienThoaiEntities();
-            var SanPham = db.SANPHAMs.SingleOrDefault(sp =>
-            sp.MaSanPham == id && sp.DaXoa == false);
+            var SanPham = db.SANPHAMs
+                .SingleOrDefault(sp => sp.MaSanPham == id && sp.DaXoa == false);
             SanPham.Sao *= 20;
             //Get Product Info for Specification
             Dictionary<string,string> SanPhamInfo = new Dictionary<string, string>();
@@ -107,8 +107,13 @@ namespace BaiCuoiKy.Controllers
         public ActionResult Category(int id, int page)
         {
             QLBanDienThoaiEntities db = new QLBanDienThoaiEntities();
-            string TenLSP = db.LOAISANPHAMs.Single(item => item.MaLSP == id).TenLoaiSanPham;
-            var DSSP = db.SANPHAMs.Where(sp => sp.DaXoa == false && sp.MaLSP == id).OrderBy(item => item.MaSanPham).Skip(6 * (page - 1)).Take(6)
+            string TenLSP = db.LOAISANPHAMs
+                .Single(item => item.MaLSP == id).TenLoaiSanPham;
+
+            var DSSP = db.SANPHAMs
+                .Where(sp => sp.DaXoa == false && sp.MaLSP == id)
+                .OrderBy(item => item.MaSanPham)
+                .Skip(6 * (page - 1)).Take(6)
                 .Select(sp => new SanPhamModel()
                 {
                     MaSanPham = sp.MaSanPham,
@@ -130,7 +135,9 @@ namespace BaiCuoiKy.Controllers
             ViewBag.SL = db.SANPHAMs.Where(sp => sp.DaXoa == false && sp.MaLSP == id).Count();
 
 
-            var DSLSP = db.LOAISANPHAMs.Select(item => new LSPModel { 
+            var DSLSP = db.LOAISANPHAMs
+                .Where(item => item.DaXoa == false)
+                .Select(item => new LSPModel { 
                 MaLSP = item.MaLSP,
                 TenLoaiSanPham = item.TenLoaiSanPham,
                 SoLuong = item.SANPHAMs.Count
@@ -139,7 +146,9 @@ namespace BaiCuoiKy.Controllers
             ViewBag.SoLuong = DSSP.Count();
             ViewBag.DSLSP = DSLSP;
 
-            var DSNCC = db.NHACUNGCAPs.Select(item => new NCCModel
+            var DSNCC = db.NHACUNGCAPs
+                .Where(item => item.DaXoa == false)
+                .Select(item => new NCCModel
             {
                 MaNCC = item.MaNCC,
                 TenNCC = item.TenNCC
@@ -152,7 +161,8 @@ namespace BaiCuoiKy.Controllers
         public ActionResult _LoaiSanPham()
         {
             QLBanDienThoaiEntities db = new QLBanDienThoaiEntities();
-            var LoaiSanPham = db.LOAISANPHAMs.ToList();
+            var LoaiSanPham = db.LOAISANPHAMs
+                .Where(item => item.DaXoa == false).ToList();
             ViewBag.LoaiSanPham = LoaiSanPham;
             return PartialView("_LoaiSanPham");
         }

@@ -27,6 +27,9 @@ namespace BaiCuoiKy.Models
         [Display(Name = "Phương thức giao hàng")]
         [Required(ErrorMessage = "Bạn chưa chọn phương thức giao hàng!")]
         public int Shipping { get; set; }
+        
+        [Display(Name = "Thanh toán khi nhận hàng")]
+        public bool COD { get; set; }
 
         public decimal TongTienSauShip { get; set; }
     }

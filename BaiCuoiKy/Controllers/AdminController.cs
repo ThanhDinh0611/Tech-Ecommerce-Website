@@ -178,7 +178,8 @@ namespace BaiCuoiKy.Controllers
         public ActionResult QLDonHang()
         {
             //Get All Delivered Orders
-            var DeliveredOrders = db.DONDATHANGs.Where(item => item.TinhTrangGiaoHang == true)
+            var DeliveredOrders = db.DONDATHANGs
+                .Where(item => item.TinhTrangGiaoHang == true && item.DaXoa == false)
                 .Select(item => new DonDatHangModel()
             {
                 MaDonHang = item.MaDonHang,
@@ -186,13 +187,16 @@ namespace BaiCuoiKy.Controllers
                 NgayDat = item.NgayDat,
                 NgayGiao = item.NgayGiao,
                 TongTien = item.TongTien,
-                YeuCau = item.YeuCau
+                YeuCau = item.YeuCau,
+                DiaChi = item.DiaChi
+                
             }).ToList();
 
             ViewBag.DeliveredOrders = DeliveredOrders;
 
             //Get All Undelivered Orders
-            var UndeliveredOrders = db.DONDATHANGs.Where(item => item.TinhTrangGiaoHang == false)
+            var UndeliveredOrders = db.DONDATHANGs
+                .Where(item => item.TinhTrangGiaoHang == false && item.DaXoa == false)
                 .Select(item => new DonDatHangModel()
                 {
                     MaDonHang = item.MaDonHang,
@@ -200,7 +204,8 @@ namespace BaiCuoiKy.Controllers
                     NgayDat = item.NgayDat,
                     NgayGiao = item.NgayGiao,
                     TongTien = item.TongTien,
-                    YeuCau = item.YeuCau
+                    YeuCau = item.YeuCau,
+                    DiaChi = item.DiaChi
                 }).ToList();
 
             ViewBag.UndeliveredOrders = UndeliveredOrders;
@@ -227,8 +232,14 @@ namespace BaiCuoiKy.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult ThemSanPham()
         {
-            var ProductTypes = db.LOAISANPHAMs.Where(item => item.DaXoa == false).ToList();
-            var Vendors = db.NHACUNGCAPs.Where(item => item.DaXoa == false).ToList();
+            //Get data
+            var ProductTypes = db.LOAISANPHAMs
+                .Where(item => item.DaXoa == false).ToList();
+
+            var Vendors = db.NHACUNGCAPs
+                .Where(item => item.DaXoa == false).ToList();
+
+            //Pass dropdown list to View
             ViewBag.ProductTypes = new SelectList(ProductTypes, "MaLSP", "TenLoaiSanPham", null);
             ViewBag.Vendors = new SelectList(Vendors, "MaNCC", "TenNCC", null);
             return View();
@@ -240,6 +251,7 @@ namespace BaiCuoiKy.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Create a new product
                 SANPHAM NewProduct = new SANPHAM()
                 {
                     TenSanPham = model.TenSanPham,
@@ -267,8 +279,12 @@ namespace BaiCuoiKy.Controllers
                     DaXoa = false,
                     NgayCapNhat = DateTime.Now
                 };
+
+                //Add product.
                 db.SANPHAMs.Add(NewProduct);
                 db.SaveChanges();
+
+                //Redirect 
                 return Content("<script language='javascript' type='text/javascript'>alert('Thêm sản phẩm thành công!'); window.location = '../../Admin/QLSanPham';</script>");
             }
             return View();
@@ -278,8 +294,11 @@ namespace BaiCuoiKy.Controllers
         [HttpGet]
         public ActionResult XoaSanPham(int id)
         {
-            var Product = db.SANPHAMs.SingleOrDefault(item => item.MaSanPham == id);
+            //Get Selected product.
+            var Product = db.SANPHAMs
+                .SingleOrDefault(item => item.MaSanPham == id);
             
+            //Pass necessary info of the product to view.
             if (Product != null)
             {
                 ViewBag.ProductType = Product.LOAISANPHAM.TenLoaiSanPham;
@@ -293,7 +312,10 @@ namespace BaiCuoiKy.Controllers
         [HttpPost]
         public ActionResult XoaSanPham(SANPHAM model)
         {
+            //Get selected product.
             var Product = db.SANPHAMs.Single(item => item.MaSanPham == model.MaSanPham);
+
+            //Delete product.
             Product.DaXoa = true;
             db.SaveChanges();
             return RedirectToAction("QLSanPham");
@@ -303,9 +325,19 @@ namespace BaiCuoiKy.Controllers
         [HttpGet]
         public ActionResult ChinhSuaSanPham(int id)
         {
-            var Product = db.SANPHAMs.SingleOrDefault(item => item.MaSanPham == id);
-            var ProductTypes = db.LOAISANPHAMs.Where(item => item.DaXoa == false).ToList();
-            var Vendors = db.NHACUNGCAPs.Where(item => item.DaXoa == false).ToList();
+            //Get selected product.
+            var Product = db.SANPHAMs
+                .SingleOrDefault(item => item.MaSanPham == id);
+
+            //Get all product types for the dropdown list
+            var ProductTypes = db.LOAISANPHAMs
+                .Where(item => item.DaXoa == false).ToList();
+
+            //Get all vendors for the dropdown list.
+            var Vendors = db.NHACUNGCAPs
+                .Where(item => item.DaXoa == false).ToList();
+
+            //Create dropdown list and pass all info to View.
             ViewBag.ProductTypes = new SelectList(ProductTypes, "MaLSP", "TenLoaiSanPham", null);
             ViewBag.Vendors = new SelectList(Vendors, "MaNCC", "TenNCC", null);
             return View(Product);
@@ -317,6 +349,7 @@ namespace BaiCuoiKy.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Update the seleccted product
                 var Product = db.SANPHAMs.Single(item => item.MaSanPham == model.MaSanPham);
                 Product.TenSanPham = model.TenSanPham;
                 Product.GiaBan = model.GiaBan;
@@ -343,6 +376,8 @@ namespace BaiCuoiKy.Controllers
                 Product.DaXoa = false;
                 Product.NgayCapNhat = DateTime.Now;
                 db.SaveChanges();
+
+                //Redirect
                 return Content("<script language='javascript' type='text/javascript'>alert('Chỉnh sửa sản phẩm thành công!'); window.location = '../../Admin/QLSanPham';</script>");
             }
             return View();
@@ -361,9 +396,12 @@ namespace BaiCuoiKy.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Updated info and add new ProductType.
                 model.DaXoa = false;
                 db.LOAISANPHAMs.Add(model);
                 db.SaveChanges();
+
+                //Redirect.
                 return Content("<script language='javascript' type='text/javascript'>alert('Thêm loại sản phẩm thành công!'); window.location = '../../Admin/QLLoaiSanPham';</script>");
             }
             return View();
@@ -373,7 +411,11 @@ namespace BaiCuoiKy.Controllers
         [HttpGet]
         public ActionResult XoaLoaiSanPham(int id)
         {
-            var ProductType = db.LOAISANPHAMs.SingleOrDefault(item => item.MaLSP == id);
+            //Get selected product
+            var ProductType = db.LOAISANPHAMs
+                .SingleOrDefault(item => item.MaLSP == id);
+
+            //Pass the selected product to View
             if(ProductType != null)
             {
                 return View(ProductType);
@@ -387,17 +429,24 @@ namespace BaiCuoiKy.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ProductType = db.LOAISANPHAMs.SingleOrDefault(item => item.MaLSP == model.MaLSP);
+                //Get selected product type
+                var ProductType = db.LOAISANPHAMs
+                    .SingleOrDefault(item => item.MaLSP == model.MaLSP);
+
                 if(ProductType != null)
                 {
-                    //Delete Products if any
+                    //Delete Products if any.
                     var Products = db.SANPHAMs.Where(item => item.MaLSP == ProductType.MaLSP);
                     foreach(var Product in Products)
                     {
                         Product.DaXoa = true;
                     }
+
+                    //Delete selected product type.
                     ProductType.DaXoa = true;
                     db.SaveChanges();
+
+                    //Redirect.
                     return Content("<script language='javascript' type='text/javascript'>alert('Xóa loại sản phẩm thành công!'); window.location = '../../Admin/QLLoaiSanPham';</script>");
                 }
                 return RedirectToAction("QLLoaiSanPham");
@@ -409,7 +458,11 @@ namespace BaiCuoiKy.Controllers
         [HttpGet]
         public ActionResult ChinhSuaLoaiSanPham(int id)
         {
-            var ProductType = db.LOAISANPHAMs.SingleOrDefault(item => item.MaLSP == id);
+            //Get selected product type.
+            var ProductType = db.LOAISANPHAMs
+                .SingleOrDefault(item => item.MaLSP == id);
+
+            //Pass the selected product type to View.
             if (ProductType != null)
             {
                 return View(ProductType);
@@ -423,7 +476,11 @@ namespace BaiCuoiKy.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ProductType = db.LOAISANPHAMs.SingleOrDefault(item => item.MaLSP == model.MaLSP);
+                //Get the selected product type.
+                var ProductType = db.LOAISANPHAMs
+                    .SingleOrDefault(item => item.MaLSP == model.MaLSP);
+
+                //Updated the selected product type.
                 if (ProductType != null)
                 {
                     ProductType.TenLoaiSanPham = model.TenLoaiSanPham;
@@ -447,9 +504,12 @@ namespace BaiCuoiKy.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Updated and add a new vendor.
                 model.DaXoa = false;
                 db.NHACUNGCAPs.Add(model);
                 db.SaveChanges();
+
+                //Redirect.
                 return Content("<script language='javascript' type='text/javascript'>alert('Thêm nhà cung cấp thành công!'); window.location = '../../Admin/QLNhaCungCap';</script>");
             }
             return View();
@@ -459,7 +519,11 @@ namespace BaiCuoiKy.Controllers
         [HttpGet]
         public ActionResult XoaNhaCungCap(int id)
         {
-            var Vendor = db.NHACUNGCAPs.SingleOrDefault(item => item.MaNCC == id);
+            //Get selected vendor.
+            var Vendor = db.NHACUNGCAPs
+                .SingleOrDefault(item => item.MaNCC == id);
+
+            //Pass the selected vendor to View.
             if (Vendor != null)
             {
                 return View(Vendor);
@@ -473,17 +537,24 @@ namespace BaiCuoiKy.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Vendor = db.NHACUNGCAPs.SingleOrDefault(item => item.MaNCC == model.MaNCC);
+                //Get the selected vendor.
+                var Vendor = db.NHACUNGCAPs
+                    .SingleOrDefault(item => item.MaNCC == model.MaNCC);
+
                 if (Vendor != null)
                 {
-                    //Delete Products if any
+                    //Delete Products if any.
                     var Products = db.SANPHAMs.Where(item => item.MaNCC == Vendor.MaNCC);
                     foreach (var Product in Products)
                     {
                         Product.DaXoa = true;
                     }
+
+                    //Delete the selected vendor.
                     Vendor.DaXoa = true;
                     db.SaveChanges();
+
+                    //Redirect.
                     return Content("<script language='javascript' type='text/javascript'>alert('Xóa nhà cung cấp thành công!'); window.location = '../../Admin/QLNhaCungCap';</script>");
                 }
                 return RedirectToAction("QLNhaCungCap");
@@ -495,7 +566,11 @@ namespace BaiCuoiKy.Controllers
         [HttpGet]
         public ActionResult ChinhSuaNhaCungCap(int id)
         {
-            var Vendor = db.NHACUNGCAPs.SingleOrDefault(item => item.MaNCC == id);
+            //Get the selected vendor.
+            var Vendor = db.NHACUNGCAPs
+                .SingleOrDefault(item => item.MaNCC == id);
+            
+            //Pass the selected vendor to view.
             if (Vendor != null)
             {
                 return View(Vendor);
@@ -509,7 +584,11 @@ namespace BaiCuoiKy.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Vendor = db.NHACUNGCAPs.SingleOrDefault(item => item.MaNCC == model.MaNCC);
+                //Get the selected vendor.
+                var Vendor = db.NHACUNGCAPs
+                    .SingleOrDefault(item => item.MaNCC == model.MaNCC);
+                
+                //Updated the selected vendor.
                 if (Vendor != null)
                 {
                     Vendor.DiaChi = model.DiaChi;
@@ -517,8 +596,58 @@ namespace BaiCuoiKy.Controllers
                     Vendor.Logo = model.Logo;
                     Vendor.TenNCC = model.TenNCC;
                     db.SaveChanges();
+
+                    //Redirect.
                     return Content("<script language='javascript' type='text/javascript'>alert('Chỉnh sửa nhà cung cấp thành công!'); window.location = '../../Admin/QLNhaCungCap';</script>");
                 }
+            }
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public ActionResult XoaDonHang(int id)
+        {
+            //Get the selected order.
+            var Order = db.DONDATHANGs
+                .SingleOrDefault(item => item.MaDonHang == id);
+
+            //Pass it to view
+            if (Order != null)
+            {
+                return View(Order);
+            }
+            return RedirectToAction("QLDonHang");
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult XoaDonHang(DONDATHANG model)
+        {
+            if (ModelState.IsValid)
+            {
+                //Get the selected order.
+                var Order = db.DONDATHANGs
+                    .SingleOrDefault(item => item.MaDonHang == model.MaDonHang);
+
+                if (Order != null)
+                {
+                    //Delete OrderDetails if any.
+                    var OrderDetails = db.CHITIETDONTHANGs
+                        .Where(item => item.MaDonHang == Order.MaDonHang);
+                    foreach (var OrderDetail in OrderDetails)
+                    {
+                        OrderDetail.DaXoa = true;
+                    }
+
+                    //Delete the selected order.
+                    Order.DaXoa = true;
+                    db.SaveChanges();
+
+                    //Redirect.
+                    return Content("<script language='javascript' type='text/javascript'>alert('Xóa nhà cung cấp thành công!'); window.location = '../../Admin/QLNhaCungCap';</script>");
+                }
+                return RedirectToAction("QLNhaCungCap");
             }
             return View();
         }
@@ -527,12 +656,20 @@ namespace BaiCuoiKy.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult _NavBar()
         {
+            //Get current login session
             ADMIN TaiKhoan = Session["TaiKhoan"] as ADMIN;
+
+            //If not logged in yet, redirect to Login page
             if (TaiKhoan == null)
             {
                 return RedirectToAction("DangNhap");
             }
-            ADMIN Admin = db.ADMINs.FirstOrDefault(user => user.TaiKhoan == TaiKhoan.TaiKhoan);
+
+            //Get current user info
+            ADMIN Admin = db.ADMINs
+                .FirstOrDefault(user => user.TaiKhoan == TaiKhoan.TaiKhoan);
+
+            //Pass to view
             return PartialView("_NavBar", Admin);
         }
     }

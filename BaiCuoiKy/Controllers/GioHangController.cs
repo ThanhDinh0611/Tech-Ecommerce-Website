@@ -187,6 +187,7 @@ namespace BaiCuoiKy.Controllers
                         GioHang.ListGioHang[i].GiaTong = GioHang.ListGioHang[i].SoLuong * GioHang.ListGioHang[i].GiaBan;
                     }
                     GioHang.Shipping = model.Shipping;
+                    GioHang.COD = model.COD;
                     Session["GioHang"] = GioHang;
                 }
                 

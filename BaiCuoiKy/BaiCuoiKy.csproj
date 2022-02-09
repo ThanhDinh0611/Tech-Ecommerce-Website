@@ -55,6 +55,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -124,11 +127,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ADMIN.cs">
       <DependentUpon>QuanLyBanDienThoai.tt</DependentUpon>
     </Compile>
@@ -179,6 +177,9 @@
     <Compile Include="NHACUNGCAP.cs">
       <DependentUpon>QuanLyBanDienThoai.tt</DependentUpon>
     </Compile>
+    <Compile Include="Payments\PayCompare.cs" />
+    <Compile Include="Payments\PayLib.cs" />
+    <Compile Include="Payments\Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuanLyBanDienThoai.Context.cs">
       <AutoGen>True</AutoGen>
@@ -3349,9 +3350,12 @@
     <Content Include="Views\Admin\ThemNhaCungCap.cshtml" />
     <Content Include="Views\Admin\XoaNhaCungCap.cshtml" />
     <Content Include="Views\Admin\ChinhSuaNhaCungCap.cshtml" />
+    <Content Include="Views\Admin\XoaDonHang.cshtml" />
+    <Content Include="Views\ThanhToan\PaymentConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\DonDatHang\" />
   </ItemGroup>
   <ItemGroup>

@@ -80,6 +80,12 @@
                                 @if (Model != null && Model.ListGioHang != null)
                                 {
                                     <table class="table table-summary">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-7"></th>
+                                                <th class="col-5"></th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             <tr class="summary-subtotal">
                                                 <td>Tổng cộng:</td>
@@ -89,6 +95,16 @@
                                                 <td>Giao hàng:</td>
                                                 <td>&nbsp;</td>
                                             </tr>
+
+                                            <tr class="summary-shipping-row">
+                                                <td colspan="2">
+                                                    <div class="custom-control checkbox-inline d-flex">
+                                                        @Html.CheckBoxFor(item => item.COD) &nbsp;
+                                                        @Html.LabelFor(item => item.COD)
+                                                    </div><!-- End .custom-control -->
+                                                </td>
+                                            </tr><!-- End .summary-shipping-row -->
+
                                             <tr>
                                                 @Html.ValidationMessageFor(item => item.Shipping, "", new { @class = "text-danger" })
                                             </tr>
@@ -111,7 +127,7 @@
                                                         @Html.LabelFor(item => item.Shipping, "Nhanh")
                                                     </div><!-- End .custom-control -->
                                                 </td>
-                                                <td>100.000 đ</td>
+                                                <td>50.000 đ</td>
                                             </tr><!-- End .summary-shipping-row -->
 
                                             <tr class="summary-total">

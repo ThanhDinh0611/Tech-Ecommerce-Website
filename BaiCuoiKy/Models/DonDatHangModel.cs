@@ -13,5 +13,6 @@ namespace BaiCuoiKy.Models
         public DateTime? NgayGiao { get; set; }
         public decimal? TongTien { get; set;}
         public string YeuCau { get; set; }
+        public string DiaChi { get; set; }
     }
 }

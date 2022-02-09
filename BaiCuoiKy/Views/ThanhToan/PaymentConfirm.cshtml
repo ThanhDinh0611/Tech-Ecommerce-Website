@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "PaymentConfirm";
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="container p-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row p-4">
+                        <div class="col-6">
+                            <h2 class="text-primary">@ViewBag.Message</h2>
+                        </div>
+                        @if (ViewBag.ResponseCode == "00")
+                        {
+                            <table class="table table-bordered table-striped" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th class="col-2 text-primary" hidden></th>
+                                        <th class="col-10 text-primary" hidden></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="pl-4">Mã hóa đơn cửa hàng</td>
+                                        <td class="pl-4">@ViewBag.MaDonHang</td=>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="pl-4">Mã hóa đơn VNPAY</td>
+                                        <td class="pl-4">@ViewBag.OrderId</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="pl-4">Mã giao dịch</td>
+                                        <td class="pl-4">@ViewBag.VnpayTranId</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="pl-4">Tổng tiền</td>
+                                        <td class="pl-4">@String.Format("{0:0,0}", ViewBag.PaymentAmount) VNĐ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
