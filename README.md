@@ -20,6 +20,6 @@ Admin Session:
   Manage Admin information
 
 ## Demo URL: 
-http://baicuoiky.somee.com/
+http://tndtech.somee.com/
 
 (Please do not provide any important information such as your emails, passwords, bank or card IDs, etc.)
