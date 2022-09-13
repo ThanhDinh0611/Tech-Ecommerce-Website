@@ -19,6 +19,11 @@ Admin Session:
   CRUD products, product types and vendors
   Manage Admin information
 
+## Admin Page
+http://tndtech.somee.com/Admin/DangNhap
+Username: dcthanh0611
+Password: thanh123
+
 ## Demo URL: 
 http://tndtech.somee.com/
 
