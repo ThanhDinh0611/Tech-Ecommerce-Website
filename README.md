@@ -20,7 +20,7 @@ Admin Session:
   Manage Admin information
 
 ## Admin Page
-http://tndtech.somee.com/Admin/DangNhap\
+http://tndtech.somee.com/Admin/DangNhap \
 Username: dcthanh0611\
 Password: thanh123
 
